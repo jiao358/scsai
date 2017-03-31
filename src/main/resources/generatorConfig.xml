@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry  
+        location="E:\DevelopWorkSpace\mybatis-generator-core-1.3.5\lib\mysql-connector-java-5.1.35.jar" />  
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://192.168.0.202/centos" driverClass="com.mysql.jdbc.Driver" password="123456" userId="root" />
+    <javaModelGenerator targetPackage="scsai.cmb.datasource.entity" targetProject="scsai/src/main/java" />
+    <sqlMapGenerator targetPackage="scsai.cmb.datasource.sql" targetProject="scsai/src/main/java" />
+    <javaClientGenerator targetPackage="scsai.cmb.datasource.inf" targetProject="scsai/src/main/java" type="XMLMAPPER" />
+    
+    <table tableName="booktypes" domainObjectName="BookType">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
+  </context>
+</generatorConfiguration>
