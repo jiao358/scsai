@@ -25,7 +25,8 @@ public class HelloWorkOne {
 	public void error(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
 		 logger.error("Test error 500 page");
-		 response.sendRedirect("scsai/static/500.html");
+//		 response.sendRedirect("scsai/static/500.html");
+		 request.getRequestDispatcher("/static/500.html").forward(request,response);
 	}
 	 @RequestMapping(value="/error2.do",method=RequestMethod.GET)
 		public void error2(HttpServletRequest request,HttpServletResponse response) throws Exception{
