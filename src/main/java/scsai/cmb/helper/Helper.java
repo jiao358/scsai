@@ -2,6 +2,7 @@ package scsai.cmb.helper;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,9 +13,9 @@ public class Helper {
 	public static void restful(HttpServletResponse  response , Object bean) throws IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		response.setHeader("Context-Type", "application/json;charset=UTF-8");
-		OutputStream outputStream = response.getOutputStream();
+		PrintWriter pw  = response.getWriter();
 		String json = mapper.writeValueAsString(bean);
-		outputStream.write(json.getBytes(ENCODING));
-		outputStream.flush();
+		pw.println(json);
+		pw.flush();
 	}
 }
