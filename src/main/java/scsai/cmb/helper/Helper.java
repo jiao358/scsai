@@ -1,8 +1,9 @@
 package scsai.cmb.helper;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,5 +18,13 @@ public class Helper {
 		String json = mapper.writeValueAsString(bean);
 		pw.println(json);
 		pw.flush();
+	}
+	
+	public static Map initResponse(){
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("state", "1");
+		map.put("code", "");
+		map.put("message", "");
+		return map;
 	}
 }

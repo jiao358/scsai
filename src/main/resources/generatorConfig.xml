@@ -12,5 +12,8 @@
     <table tableName="booktypes" domainObjectName="BookType">
       <columnOverride column="FILMID" property="FILMID" />
     </table>
+     <table tableName="CUSTOM" domainObjectName="Custom">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
   </context>
 </generatorConfiguration>
