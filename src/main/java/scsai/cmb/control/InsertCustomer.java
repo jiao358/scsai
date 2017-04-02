@@ -35,9 +35,9 @@ public class InsertCustomer {
 		cust.setSex(Integer.valueOf(map.get("SEX").toString()));
 		cust.setAddress(map.get("ADDRESS").toString());
 		cust.setCardNumb(map.get("CARDNUMB").toString());
-		cust.setCardType(Integer.valueOf(map.get("CARDTYPE").toString()));
+		cust.setCardType(map.get("CARDTYPE").toString());
 		cust.setCreateDate(new Date());
 		cust.setName(map.get("NAME").toString());
-		cust.setPhone(Integer.valueOf(map.get("PHONE").toString()));
+		cust.setPhone(map.get("PHONE").toString());
 	}
 }

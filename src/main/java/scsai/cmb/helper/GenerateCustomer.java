@@ -91,10 +91,10 @@ public class GenerateCustomer {
 		Custom cust = new Custom();
 		cust.setAddress(getAddress());
 		cust.setCardNumb(getCardNumber());
-		cust.setCardType(Integer.valueOf(getCardType()));
+		cust.setCardType(getCardType());
 		cust.setCreateDate(new Date());
 		cust.setName(getName());
-		cust.setPhone(Integer.valueOf(getPhone()));
+		cust.setPhone(getPhone());
 		cust.setSex(getSex());
 		
 		
