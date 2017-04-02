@@ -16,7 +16,7 @@ import scsai.cmb.datasource.entity.Custom;
 import scsai.cmb.datasource.inf.CustomMapper;
 import scsai.cmb.helper.Helper;
 
-@Controller(value="/insert")
+@Controller()
 public class InsertCustomer {
 	private static final Logger logger = Logger.getLogger(InsertCustomer.class);
 	@Autowired
