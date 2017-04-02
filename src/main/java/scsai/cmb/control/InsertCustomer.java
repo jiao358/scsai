@@ -22,7 +22,7 @@ public class InsertCustomer {
 	@Autowired
 	private CustomMapper dao;
 	
-	@RequestMapping(value="/customer",method=RequestMethod.POST)
+	@RequestMapping(value="/customer.do",method=RequestMethod.POST)
 	public void customerInsert(HttpServletRequest request ,HttpServletResponse response) throws Exception{
 		Map bean=  Helper.initResponse();
 		Custom cust = new Custom();
