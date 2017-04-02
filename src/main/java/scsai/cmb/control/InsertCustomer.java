@@ -16,7 +16,8 @@ import scsai.cmb.datasource.entity.Custom;
 import scsai.cmb.datasource.inf.CustomMapper;
 import scsai.cmb.helper.Helper;
 
-@Controller()
+@Controller
+@RequestMapping(value="/insert")
 public class InsertCustomer {
 	private static final Logger logger = Logger.getLogger(InsertCustomer.class);
 	@Autowired
@@ -32,15 +33,15 @@ public class InsertCustomer {
 	}
 	
 	private void parseCustom(HttpServletRequest request,Custom cust){
-		Map map=request.getParameterMap();
-		logger.info("this is customer map-->"+map);
-		cust.setSex(Integer.valueOf(map.get("SEX").toString()));
-		cust.setAddress(map.get("ADDRESS").toString());
-		cust.setCardNumb(map.get("CARDNUMB").toString());
-		cust.setCardType(map.get("CARDTYPE").toString());
+		Map<String,String[]> map=request.getParameterMap();
+		
+		cust.setSex(Integer.valueOf(map.get("SEX")[0].toString()));
+		cust.setAddress(map.get("ADDRESS")[0].toString());
+		cust.setCardNumb(map.get("CARDNUMB")[0].toString());
+		cust.setCardType(map.get("CARDTYPE")[0].toString());
 		cust.setCreateDate(new Date());
-		cust.setName(map.get("NAME").toString());
-		cust.setPhone(map.get("PHONE").toString());
+		cust.setName(map.get("NAME")[0].toString());
+		cust.setPhone(map.get("PHONE")[0].toString());
 	}
 	
 }
