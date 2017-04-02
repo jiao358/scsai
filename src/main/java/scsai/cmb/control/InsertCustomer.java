@@ -40,4 +40,5 @@ public class InsertCustomer {
 		cust.setName(map.get("NAME").toString());
 		cust.setPhone(map.get("PHONE").toString());
 	}
+	
 }

@@ -72,7 +72,7 @@ public class GenerateCustomer {
 	
 
 	public int getSex() {
-		return random.nextInt(1);
+		return random.nextInt(2);
 	}
 
 	public String getAddress() {
