@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import scsai.cmb.helper.Helper;
 
 @Controller(value="/insert")
 public class InsertCustomer {
-
+	private static final Logger logger = Logger.getLogger(InsertCustomer.class);
 	@Autowired
 	private CustomMapper dao;
 	
@@ -32,6 +33,7 @@ public class InsertCustomer {
 	
 	private void parseCustom(HttpServletRequest request,Custom cust){
 		Map map=request.getParameterMap();
+		logger.info("this is customer map-->"+map);
 		cust.setSex(Integer.valueOf(map.get("SEX").toString()));
 		cust.setAddress(map.get("ADDRESS").toString());
 		cust.setCardNumb(map.get("CARDNUMB").toString());
