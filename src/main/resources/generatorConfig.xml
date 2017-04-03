@@ -15,5 +15,9 @@
      <table tableName="CUSTOM" domainObjectName="Custom">
       <columnOverride column="FILMID" property="FILMID" />
     </table>
+    
+     <table tableName="REQUEST_INFO" domainObjectName="RequestInfo">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
   </context>
 </generatorConfiguration>

@@ -14,8 +14,10 @@ public class Helper {
 	public static void restful(HttpServletResponse  response , Object bean) throws IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		response.setHeader("Context-Type", "application/json;charset=UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw  = response.getWriter();
 		String json = mapper.writeValueAsString(bean);
+		System.out.println("the json"+ json);
 		pw.println(json);
 		pw.flush();
 	}
@@ -26,5 +28,7 @@ public class Helper {
 		map.put("code", "");
 		map.put("message", "");
 		return map;
+	}
+	public static void processError(Map map){
 	}
 }

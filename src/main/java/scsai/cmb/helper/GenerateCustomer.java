@@ -4,9 +4,10 @@ import java.util.Date;
 import java.util.Random;
 
 import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.springframework.stereotype.Service;
 
 import scsai.cmb.datasource.entity.Custom;
-
+@Service
 public class GenerateCustomer {
 	private static String[] firstName = { "赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩",
 			"杨", "朱", "秦", "尤", "许", "何", "吕", "施", "张", "孔", "曹", "严", "华", "金", "魏", "陶", "姜", "戚", "谢", "邹", "喻",

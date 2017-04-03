@@ -22,20 +22,20 @@ public class HelloWorkOne {
 	 private BookTypeMapper btm;
 	
 	 @RequestMapping(value="/error.do",method=RequestMethod.GET)
-	public void error(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public void getError(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
 		 logger.error("Test error 500 page");
 //		 response.sendRedirect("scsai/static/500.html");
 		 request.getRequestDispatcher("/static/500.html").forward(request,response);
 	}
 	 @RequestMapping(value="/error2.do",method=RequestMethod.GET)
-		public void error2(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		public void getError2(HttpServletRequest request,HttpServletResponse response) throws Exception{
 			
 		 	throw  new Exception("eeror");
 		}
 	 
 	@RequestMapping(value="/hello",method=RequestMethod.GET)
-	public void sayHello(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public void getSayHello(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
 		Map map  = new HashMap<String,String>();
 		map.put("name", "pino");
@@ -50,7 +50,18 @@ public class HelloWorkOne {
 		pw.flush();
 	}
 	@RequestMapping(value="/hello.do",method=RequestMethod.GET)
-	public void hello2(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public void getHello2(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		
+		request.getHeaderNames();
+		int length=request.getContentLength();
+		String contentType=request.getContentType();
+		String addr=request.getLocalAddr();
+		String servletPath=request.getServletPath();
+		String servletName=request.getServerName();
+		String method=request.getMethod();
+		String scheme=request.getScheme();
+		String protocol=request.getProtocol();
+		String queryString=request.getQueryString();
 		
 		Map map  = new HashMap<String,String>();
 		map.put("name", "pino");
