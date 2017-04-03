@@ -45,11 +45,6 @@ public class RequestAop {
 	public void beforeJp(JoinPoint jp){
 		
 	}
-	@Test
-	public void o(){
-		String s=UUID.randomUUID().toString(); 
-		System.out.println(s.length());
-	}
 	
 	private RequestInfo generateInfo(HttpServletRequest request){
 		RequestInfo requestInfo = new RequestInfo();

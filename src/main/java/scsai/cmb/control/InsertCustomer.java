@@ -55,7 +55,7 @@ public class InsertCustomer {
 			dao.insert(custom);
 		}catch (Exception e) {
 			bean.put("state", 2);
-			bean.put("message", Arrays.toString(e.getStackTrace()));
+			bean.put("message", e.getMessage());
 		}
 		bean.put("domain", custom);
 		logger.info("say domain"+ custom);;
