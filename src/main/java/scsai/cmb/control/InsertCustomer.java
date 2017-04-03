@@ -1,12 +1,12 @@
 package scsai.cmb.control;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.tribes.util.Arrays;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class InsertCustomer {
 			dao.insert(custom);
 		}catch (Exception e) {
 			bean.put("state", 2);
-			bean.put("message", e.getMessage());
+			bean.put("message", Arrays.toString(e.getStackTrace()));
 		}
 		bean.put("domain", custom);
 		logger.info("say domain"+ custom);;
