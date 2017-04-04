@@ -42,7 +42,9 @@ public class HelloWorkOne {
 	  */
 	 @RequestMapping(value="/decrypt/{str}.do")
 	 public void getPasswd(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
+		 logger.info("now decrypt content ->" + str);
 		 String passwd= TokenEntrypt.decrypt(str);
+		 logger.info("now decrypt over content is -->"+ passwd);
 		 Map result = Helper.initResponse();
 		 result.put("decrypt", passwd);
 		 Helper.restful(response, result);;

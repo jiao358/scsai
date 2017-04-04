@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -13,7 +14,10 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.log4j.Logger;
+
 public class TokenEntrypt {
+	private static final Logger logger = Logger.getLogger(TokenEntrypt.class);
 	private static String pwd = "estelasu";
 	public static String encrypt(String content){
 		byte[] encryptResult =encrypt(content, pwd);
@@ -22,9 +26,15 @@ public class TokenEntrypt {
 	}
 	
 	public static String decrypt(String password){
-		byte[] decryptFrom = parseHexStr2Byte(password);  
-		byte[] decryptResult = decrypt(decryptFrom,pwd);  
-		return new String(decryptResult);
+		String result="";
+		try{
+			byte[] decryptFrom = parseHexStr2Byte(password);  
+			byte[] decryptResult = decrypt(decryptFrom,pwd);  
+			result = new String (decryptResult);
+		}catch (Exception e) {
+			logger.error("decrypt failed -->"+Arrays.toString(e.getStackTrace()));
+		}
+		return result;
 	}
 	
 	public static void main(String[] args) {
