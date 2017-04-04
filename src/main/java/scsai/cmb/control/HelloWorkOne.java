@@ -54,7 +54,7 @@ public class HelloWorkOne {
 	 
 	 @RequestMapping(value="/encrypt/{str}.do")
 	 public void getEncrypt(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
-		 String passwd= TokenEntrypt.encrypt(str);
+		 String passwd= SecurityAES.encryptAES(str,SecurityAES.pwd);
 		 Map result = Helper.initResponse();
 		 result.put("encrypt", passwd);
 		 Helper.restful(response, result);;
