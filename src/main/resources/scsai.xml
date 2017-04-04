@@ -17,19 +17,17 @@
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="scsai.cmb" />
 	<!-- 引入配置文件 -->
-	 <bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:config.properties" />
-	</bean>
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location" value="classpath:config.properties" /> </bean> -->
 
 
-<!-- 	<bean id="cmbProperty" class="scsai.cmb.helper.CmbProperty">
+	<bean id="cmbProperty" class="scsai.cmb.helper.CmbProperty">
 		<property name="locations">
 			<list>
 				<value>classpath:config.properties</value>
 			</list>
 		</property>
-	</bean> -->
+	</bean>
 
 
 
