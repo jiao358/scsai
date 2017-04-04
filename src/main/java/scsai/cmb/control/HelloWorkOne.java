@@ -40,8 +40,9 @@ public class HelloWorkOne {
 	 /**
 	  * return the decrypt 
 	  */
-	 @RequestMapping(value="/decrypt/{str}.do")
-	 public void getPasswd(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
+	 @RequestMapping(value="/decrypt.do",method=RequestMethod.POST)
+	 public void postPasswd(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		 String str=request.getParameter("token");
 		 logger.info("now decrypt content ->" + str);
 		 String passwd= TokenEntrypt.decrypt(str);
 		 logger.info("now decrypt over content is -->"+ passwd);
