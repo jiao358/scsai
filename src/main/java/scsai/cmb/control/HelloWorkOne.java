@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import scsai.cmb.datasource.inf.BookTypeMapper;
+import scsai.cmb.helper.Helper;
+import scsai.cmb.helper.TokenEntrypt;
 
 @Controller
 public class HelloWorkOne {
@@ -34,6 +37,26 @@ public class HelloWorkOne {
 		 	throw  new Exception("eeror");
 		}
 	 
+	 /**
+	  * return the decrypt 
+	  */
+	 @RequestMapping(value="/decrypt/{str}.do")
+	 public void getPasswd(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
+		 String passwd= TokenEntrypt.decrypt(str);
+		 Map result = Helper.initResponse();
+		 result.put("decrypt", passwd);
+		 Helper.restful(response, result);;
+	 }
+	 
+	 @RequestMapping(value="/encrypt/{str}.do")
+	 public void getEncrypt(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
+		 String passwd= TokenEntrypt.encrypt(str);
+		 Map result = Helper.initResponse();
+		 result.put("encrypt", passwd);
+		 Helper.restful(response, result);;
+	 }
+	 
+	
 	@RequestMapping(value="/hello",method=RequestMethod.GET)
 	public void getSayHello(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
