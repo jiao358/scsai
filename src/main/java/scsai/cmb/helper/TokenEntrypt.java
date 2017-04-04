@@ -30,6 +30,7 @@ public class TokenEntrypt {
 		try{
 			byte[] decryptFrom = parseHexStr2Byte(password);  
 			logger.info("now the 16ox convertto length="+decryptFrom.length);
+			logger.info(Arrays.toString(decryptFrom));
 			
 			byte[] decryptResult = decrypt(decryptFrom,pwd);  
 			result = new String (decryptResult);
