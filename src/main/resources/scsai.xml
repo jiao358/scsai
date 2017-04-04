@@ -17,10 +17,10 @@
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="scsai.cmb" />
 	<!-- 引入配置文件 -->
-	<bean id="propertyConfigurer"
+	<!-- <bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:config.properties" />
-	</bean>
+	</bean> -->
 
 
 	<bean id="cmbProperty" class="scsai.cmb.helper.CmbProperty">
