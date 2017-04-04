@@ -29,10 +29,12 @@ public class TokenEntrypt {
 		String result="";
 		try{
 			byte[] decryptFrom = parseHexStr2Byte(password);  
+			logger.info("now the 16ox convertto length="+decryptFrom.length);
+			
 			byte[] decryptResult = decrypt(decryptFrom,pwd);  
 			result = new String (decryptResult);
 		}catch (Exception e) {
-			logger.error("decrypt failed -->"+Arrays.toString(e.getStackTrace()));
+			logger.error("decrypt failed -->",e);
 		}
 		return result;
 	}
@@ -80,16 +82,8 @@ public class TokenEntrypt {
 			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
 			byte[] result = cipher.doFinal(content);
 			return result; // 加密
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			e.printStackTrace();
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		} catch (IllegalBlockSizeException e) {
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error("decrypt something error",e);
 		}
 		return null;
 	}
