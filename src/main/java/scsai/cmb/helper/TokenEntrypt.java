@@ -1,5 +1,6 @@
 package scsai.cmb.helper;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -16,35 +17,63 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 public class TokenEntrypt {
 	private static final Logger logger = Logger.getLogger(TokenEntrypt.class);
 	private static String pwd = "estelasu";
 	public static String encrypt(String content){
 		byte[] encryptResult =encrypt(content, pwd);
-		String encryptResultStr = parseByte2HexStr(encryptResult);  
-		return encryptResultStr;
+		return setEncString(encryptResult);
 	}
 	
 	public static String decrypt(String password){
 		String result="";
 		try{
-			byte[] decryptFrom = parseHexStr2Byte(password);  
+			BASE64Decoder decoder= new BASE64Decoder();
+			byte[] debuf=decoder.decodeBuffer(password);
+			byte[] decrypt=decrypt(debuf,pwd);
+			result = new String(decrypt);
+		/*	byte[] decryptFrom = parseHexStr2Byte(password);  
 			logger.info("now the 16ox convertto length="+decryptFrom.length);
 			logger.info(Arrays.toString(decryptFrom));
 			
 			byte[] decryptResult = decrypt(decryptFrom,pwd);  
-			result = new String (decryptResult);
+			result = new String (decryptResult);*/
 		}catch (Exception e) {
 			logger.error("decrypt failed -->",e);
 		}
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		String paswd= "123456";
+	 public static String setEncString(byte[] buf) {
+	        BASE64Encoder base64en = new BASE64Encoder();
+	        return base64en.encode(buf);
+	    }
+	 
+	
+	public static void main(String[] args) throws IOException {
+		/*String paswd= "123456";
 		System.out.println(encrypt(paswd));
 		String psd= "6E0C304C265ADB22A4EF5EF74D8C88DC";
 		System.out.println(decrypt(psd));
+		
+		byte[] buf= {110, 12, 48, 76, 38, 90, -37, 34, -92, -17, 94, -9, 77, -116, -120, -36};
+		byte[] cc=decrypt(buf,pwd);
+		String vv= new String(cc);
+		System.out.println(vv);*/
+		String str="123456";
+		byte[] buf=encrypt(str, pwd);
+		String encryptString = setEncString(buf);
+		System.out.println(encryptString);
+		BASE64Decoder decoder= new BASE64Decoder();
+		
+		byte[] debuf=decoder.decodeBuffer(encryptString);
+		byte[] decrypt=decrypt(debuf,pwd);
+		
+		System.out.println(new String(decrypt,"utf-8"));
+		
 	}
 	
 	
