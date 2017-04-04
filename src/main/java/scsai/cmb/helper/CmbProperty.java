@@ -12,6 +12,7 @@ public class CmbProperty extends PropertyPlaceholderConfigurer {
 		String returnPropertyValue="";
 		if(propertyValue.matches(regex)){
 			try {
+				logger.info("LOAD property -->"+propertyValue.substring(2,propertyValue.length()-1));
 				returnPropertyValue = SecurityAES.decrypt(propertyValue.substring(2,propertyValue.length()-1));
 			} catch (Exception e) {
 				logger.error("initial properties "+propertyName+" error",e);
