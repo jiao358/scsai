@@ -10,25 +10,26 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 public class SecurityAES {
 	private final static String encoding = "UTF-8";
-	public final static String pwd="estela";
+	public final static String pwd="estela"
+			;
 	public static void main(String[] args) throws Exception {
-		String encry=encryptAES("123456",pwd);
+		String encry=encryptAES("123456");
 		System.out.println(encry);
 		
-		System.out.println(decrypt(encry, pwd));
+		System.out.println(decrypt(encry));
 		
 	}
-	public static String encryptAES(String content, String password)throws Exception  {
-		byte[] encryptResult = encrypt(content, password);
+	public static String encryptAES(String content)throws Exception  {
+		byte[] encryptResult = encrypt(content, pwd);
 		String encryptResultStr = parseByte2HexStr(encryptResult);
 		encryptResultStr = ebotongEncrypto(encryptResultStr);
 		return encryptResultStr;
 	}
 	//decrypt
-	 public static String decrypt(String encryptResultStr, String password) throws Exception {
+	 public static String decrypt(String encryptResultStr) throws Exception {
 		 String decrpt = ebotongDecrypto(encryptResultStr);
 		 byte[] decryptFrom = parseHexStr2Byte(decrpt);
-		 byte[] decryptResult = decrypt(decryptFrom, password);
+		 byte[] decryptResult = decrypt(decryptFrom, pwd);
 		 return new String(decryptResult);
 	 }
 	 public static String ebotongEncrypto(String str)throws Exception  {

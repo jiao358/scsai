@@ -45,7 +45,7 @@ public class HelloWorkOne {
 	 public void postPasswd(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		 String str=request.getParameter("token");
 		 logger.info("now decrypt content ->" + str);
-		 String passwd= SecurityAES.decrypt(str,SecurityAES.pwd);
+		 String passwd= SecurityAES.decrypt(str);
 		 logger.info("now decrypt over content is -->"+ passwd);
 		 Map result = Helper.initResponse();
 		 result.put("decrypt", passwd);
@@ -54,7 +54,7 @@ public class HelloWorkOne {
 	 
 	 @RequestMapping(value="/encrypt/{str}.do")
 	 public void getEncrypt(HttpServletRequest request,HttpServletResponse response,@PathVariable String str) throws Exception{
-		 String passwd= SecurityAES.encryptAES(str,SecurityAES.pwd);
+		 String passwd= SecurityAES.encryptAES(str);
 		 Map result = Helper.initResponse();
 		 result.put("encrypt", passwd);
 		 Helper.restful(response, result);;
