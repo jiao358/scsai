@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import scsai.cmb.datasource.inf.BookTypeMapper;
 import scsai.cmb.helper.Helper;
+import scsai.cmb.helper.SecurityAES;
 import scsai.cmb.helper.TokenEntrypt;
 
 @Controller
@@ -44,7 +45,7 @@ public class HelloWorkOne {
 	 public void postPasswd(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		 String str=request.getParameter("token");
 		 logger.info("now decrypt content ->" + str);
-		 String passwd= TokenEntrypt.decrypt(str);
+		 String passwd= SecurityAES.decrypt(str,SecurityAES.pwd);
 		 logger.info("now decrypt over content is -->"+ passwd);
 		 Map result = Helper.initResponse();
 		 result.put("decrypt", passwd);
