@@ -23,60 +23,61 @@ import sun.misc.BASE64Encoder;
 public class TokenEntrypt {
 	private static final Logger logger = Logger.getLogger(TokenEntrypt.class);
 	private static String pwd = "estelasu";
-	public static String encrypt(String content){
-		byte[] encryptResult =encrypt(content, pwd);
+
+	public static String encrypt(String content) {
+		byte[] encryptResult = encrypt(content, pwd);
 		return setEncString(encryptResult);
 	}
-	
-	public static String decrypt(String password){
-		String result="";
-		try{
-			BASE64Decoder decoder= new BASE64Decoder();
-			byte[] debuf=decoder.decodeBuffer(password);
-			byte[] decrypt=decrypt(debuf,pwd);
+
+	public static String decrypt(String password) {
+		String result = "";
+		try {
+			BASE64Decoder decoder = new BASE64Decoder();
+			byte[] debuf = decoder.decodeBuffer(password);
+			byte[] decrypt = decrypt(debuf, pwd);
 			result = new String(decrypt);
-		/*	byte[] decryptFrom = parseHexStr2Byte(password);  
-			logger.info("now the 16ox convertto length="+decryptFrom.length);
-			logger.info(Arrays.toString(decryptFrom));
-			
-			byte[] decryptResult = decrypt(decryptFrom,pwd);  
-			result = new String (decryptResult);*/
-		}catch (Exception e) {
-			logger.error("decrypt failed -->",e);
+			/*
+			 * byte[] decryptFrom = parseHexStr2Byte(password);
+			 * logger.info("now the 16ox convertto length="+decryptFrom.length);
+			 * logger.info(Arrays.toString(decryptFrom));
+			 * 
+			 * byte[] decryptResult = decrypt(decryptFrom,pwd); result = new
+			 * String (decryptResult);
+			 */
+		} catch (Exception e) {
+			logger.error("decrypt failed -->", e);
 		}
 		return result;
 	}
-	
-	 public static String setEncString(byte[] buf) {
-	        BASE64Encoder base64en = new BASE64Encoder();
-	        return base64en.encode(buf);
-	    }
-	 
-	
+
+	public static String setEncString(byte[] buf) {
+		BASE64Encoder base64en = new BASE64Encoder();
+		return base64en.encode(buf);
+	}
+
 	public static void main(String[] args) throws IOException {
-		/*String paswd= "123456";
-		System.out.println(encrypt(paswd));
-		String psd= "6E0C304C265ADB22A4EF5EF74D8C88DC";
-		System.out.println(decrypt(psd));
-		
-		byte[] buf= {110, 12, 48, 76, 38, 90, -37, 34, -92, -17, 94, -9, 77, -116, -120, -36};
-		byte[] cc=decrypt(buf,pwd);
-		String vv= new String(cc);
-		System.out.println(vv);*/
-		String str="123456";
-		byte[] buf=encrypt(str, pwd);
+		/*
+		 * String paswd= "123456"; System.out.println(encrypt(paswd)); String
+		 * psd= "6E0C304C265ADB22A4EF5EF74D8C88DC";
+		 * System.out.println(decrypt(psd));
+		 * 
+		 * byte[] buf= {110, 12, 48, 76, 38, 90, -37, 34, -92, -17, 94, -9, 77,
+		 * -116, -120, -36}; byte[] cc=decrypt(buf,pwd); String vv= new
+		 * String(cc); System.out.println(vv);
+		 */
+		String str = "123456";
+		byte[] buf = encrypt(str, pwd);
 		String encryptString = setEncString(buf);
 		System.out.println(encryptString);
-		BASE64Decoder decoder= new BASE64Decoder();
-		
-		byte[] debuf=decoder.decodeBuffer(encryptString);
-		byte[] decrypt=decrypt(debuf,pwd);
-		
-		System.out.println(new String(decrypt,"utf-8"));
-		
+		BASE64Decoder decoder = new BASE64Decoder();
+
+		byte[] debuf = decoder.decodeBuffer(encryptString);
+		byte[] decrypt = decrypt(debuf, pwd);
+
+		System.out.println(new String(decrypt, "utf-8"));
+
 	}
-	
-	
+
 	public static byte[] parseHexStr2Byte(String hexStr) {
 		if (hexStr.length() < 1)
 			return null;
@@ -104,7 +105,10 @@ public class TokenEntrypt {
 	public static byte[] decrypt(byte[] content, String password) {
 		try {
 			KeyGenerator kgen = KeyGenerator.getInstance("AES");
-			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			kgen.init(128, secureRandom);
+			secureRandom.setSeed(password.getBytes());
+
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -113,7 +117,7 @@ public class TokenEntrypt {
 			byte[] result = cipher.doFinal(content);
 			return result; // 加密
 		} catch (Exception e) {
-			logger.error("decrypt something error",e);
+			logger.error("decrypt something error", e);
 		}
 		return null;
 	}
@@ -121,7 +125,10 @@ public class TokenEntrypt {
 	public static byte[] encrypt(String content, String password) {
 		try {
 			KeyGenerator kgen = KeyGenerator.getInstance("AES");
-			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			kgen.init(128, secureRandom);
+			secureRandom.setSeed(password.getBytes());
+
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
