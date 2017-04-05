@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +18,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import scsai.cmb.datasource.inf.BookTypeMapper;
 import scsai.cmb.helper.Helper;
 import scsai.cmb.helper.SecurityAES;
-import scsai.cmb.helper.TokenEntrypt;
 
 @Controller
+@Scope("prototype")
 public class HelloWorkOne {
 	private static final Logger logger = Logger.getLogger(HelloWorkOne.class);
 	 @Autowired  
 	 private BookTypeMapper btm;
+	 private int currentCustomer= 0;
 	
+	 @RequestMapping(value="/current.do",method=RequestMethod.GET)
+	 public void getCurrentCustomer(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		 
+		 Map map = Helper.initResponse();
+		 map.put("domain", currentCustomer++);
+		 Helper.restful(response, map);;
+		 
+	 }
+	 
 	 @RequestMapping(value="/error.do",method=RequestMethod.GET)
 	public void getError(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		

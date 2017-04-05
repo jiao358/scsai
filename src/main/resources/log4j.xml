@@ -13,24 +13,38 @@
 	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Threshold" value="info"></param>
 		<param name="ImmediateFlush" value="true"></param>
+		<param name="MaxBackupIndex" value="8" />
+		<param name="MaxFileSize" value="64m" />
 		<param name="File" value="/tmp/scsailog/scsai.log"></param>
-	<!-- 	<param name="File" value="e:/scsai.log"></param> -->
+		<!-- <param name="File" value="e:/scsai.log"></param> -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'"></param>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] {%c:%L}-%m%n"></param>
 		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="info" />
+			<param name="levelMax" value="info" />
+		</filter>
+
 	</appender>
 	<appender name="dailyRollingFileError" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Threshold" value="error"></param>
 		<param name="ImmediateFlush" value="true"></param>
+		<param name="MaxBackupIndex" value="2" />
+		<param name="MaxFileSize" value="64m" />
 		<param name="File" value="/tmp/scsailog/scsaiError.log"></param> 
 		<!-- <param name="File" value="e:/scsaierr.log"></param> -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'"></param>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] {%c:%L}-%m%n"></param>
 		</layout>
+
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="warn" />
+			<param name="levelMax" value="error" />
+		</filter>
 	</appender>
-	
+
 
 	<!-- 输出日志到文件 文件大小到达指定尺寸的时候产生一个新的文件 -->
 	<appender name="railyFile" class="org.apache.log4j.RollingFileAppender">
@@ -59,9 +73,8 @@
 	<root>
 		<priority value="INFO" />
 		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFileError" /> 
-		<appender-ref ref="dailyRollingFile" /> <!-- <appender-ref ref="railyFile" 
-			/> <appender-ref ref="file" /> -->
+		<appender-ref ref="dailyRollingFileError" />
+		<appender-ref ref="dailyRollingFile" /> <!-- <appender-ref ref="railyFile" /> <appender-ref ref="file" /> -->
 	</root>
 
 </log4j:configuration>   

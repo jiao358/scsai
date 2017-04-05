@@ -16,3 +16,5 @@ API Design:
 /encrypt/{str}.do    GET   system will encrypt the str code and return to brower
 
 /hello.do     GET   will query count of booktypes table and return to brower
+
+/current.do  GET  will to verify @Controller is prototype

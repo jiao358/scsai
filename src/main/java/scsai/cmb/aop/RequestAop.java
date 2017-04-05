@@ -1,9 +1,12 @@
 package scsai.cmb.aop;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -19,8 +22,9 @@ public class RequestAop {
 	@Autowired
 	private RequestInfoMapper requestDao;
 	@Transactional
-	public void filterRequest(ProceedingJoinPoint  jp){
+	public void filterRequest(ProceedingJoinPoint  jp) throws ServletException, IOException{
 		HttpServletRequest request=(HttpServletRequest) jp.getArgs()[0];
+		HttpServletResponse response = (HttpServletResponse) jp.getArgs()[1];
 		String id=UUID.randomUUID().toString(); 
 		RequestInfo requestInfo = generateInfo(request);
 		try{
@@ -33,7 +37,8 @@ public class RequestAop {
 			jp.proceed();
 		
 		}catch (Throwable e) {
-			logger.error("RequestInfoException arise" + request.getQueryString() ,e);
+			logger.error("RequestInfoException arise " + request.getQueryString() ,e);
+			request.getRequestDispatcher("/static/500.html").forward(request, response);
 		}finally{
 			requestInfo.setResponseDate(new Date());
 			requestDao.updateByPrimaryKey(requestInfo);
