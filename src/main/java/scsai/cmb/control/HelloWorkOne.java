@@ -1,6 +1,7 @@
 package scsai.cmb.control;
 
 import java.io.PrintWriter;
+import java.net.Inet4Address;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,20 @@ public class HelloWorkOne {
 		 
 	 }
 	 
+
+	 @RequestMapping(value="/server.do",method=RequestMethod.GET)
+	 public void getCurrentServer(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		 
+		 Map map = Helper.initResponse();
+		 String ip = Inet4Address.getLocalHost().getHostAddress();
+		 String dnsName = Inet4Address.getLocalHost().getHostName();
+		 map.put("ip", ip);
+		 map.put("name", dnsName);
+		 Helper.restful(response, map);;
+		 
+	 }
+	 
+	 
 	 @RequestMapping(value="/error.do",method=RequestMethod.GET)
 	public void getError(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
@@ -70,6 +85,7 @@ public class HelloWorkOne {
 		 result.put("encrypt", passwd);
 		 Helper.restful(response, result);;
 	 }
+	 
 	 
 	
 	@RequestMapping(value="/hello",method=RequestMethod.GET)

@@ -18,3 +18,5 @@ API Design:
 /hello.do     GET   will query count of booktypes table and return to brower
 
 /current.do  GET  will to verify @Controller is prototype
+
+/server.do   GET   get  ip,name of the server requested 
