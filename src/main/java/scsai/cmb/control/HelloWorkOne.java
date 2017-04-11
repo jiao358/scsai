@@ -2,6 +2,7 @@ package scsai.cmb.control;
 
 import java.io.PrintWriter;
 import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,11 +43,22 @@ public class HelloWorkOne {
 	 public void getCurrentServer(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		 
 		 Map map = Helper.initResponse();
-		 String ip = Inet4Address.getLocalHost().getHostAddress();
-		 String dnsName = Inet4Address.getLocalHost().getHostName();
-		 map.put("ip", ip);
-		 map.put("name", dnsName);
-		 Helper.restful(response, map);;
+		 
+		 InetAddress ia=null;
+	        try {
+	            ia=ia.getLocalHost();
+	             
+	            String localname=ia.getHostName();
+	            String localip=ia.getHostAddress();
+	            map.put("ip", localip);
+	   		 map.put("name", localname);
+	   		 Helper.restful(response, map);;
+	        } catch (Exception e) {
+	        	logger.error("Get Server Ip Exception",e);
+	        	Helper.processError(response);
+	        }
+	        
+		
 		 
 	 }
 	 

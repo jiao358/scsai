@@ -29,6 +29,10 @@ public class Helper {
 		map.put("message", "");
 		return map;
 	}
-	public static void processError(Map map){
+	public static void processError(HttpServletResponse  response){
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("state", "2");
+		map.put("code", "");
+		map.put("message", "sometings error");
 	}
 }
