@@ -45,16 +45,17 @@ public class HelloWorkOne {
 	public void getCurrentServer(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map map = Helper.initResponse();
-
 		Enumeration allNetInterfaces = NetworkInterface.getNetworkInterfaces();
 		InetAddress ip = null;
 		while (allNetInterfaces.hasMoreElements()) {
 			NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
-			if ("eth0".equals(netInterface.getName())) {
-				System.out.println(netInterface.getName());
-				Enumeration addresses = netInterface.getInetAddresses();
+			logger.info("local network name is -->" + netInterface.getName());
+			Enumeration addresses = netInterface.getInetAddresses();
+			while (addresses.hasMoreElements()) {
 				ip = (InetAddress) addresses.nextElement();
-				map.put("ip", ip.getHostAddress());
+				if (ip != null && ip instanceof Inet4Address) {
+					logger.info("local ip-->" +ip.getHostAddress() );
+				}
 			}
 		}
 
@@ -63,7 +64,7 @@ public class HelloWorkOne {
 			ia = ia.getLocalHost();
 
 			String localname = ia.getHostName();
-			
+
 			map.put("name", localname);
 			Helper.restful(response, map);
 			;
