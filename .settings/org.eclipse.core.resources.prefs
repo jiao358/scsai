@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/scsai/cmb/helper/AddressGenerate.java=UTF-8
+encoding//src/main/java/scsai/cmb/helper/GenerateCustomer.java=UTF-8
+encoding//src/main/java/scsai/cmb/helper/IdCardNumber.java=UTF-8
 encoding//src/main/resources/config.properties=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
