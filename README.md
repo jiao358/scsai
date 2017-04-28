@@ -20,3 +20,5 @@ API Design:
 /current.do  GET  will to verify @Controller is prototype
 
 /server.do   GET   get  ip,name of the server requested 
+
+/index.do  GET   get index logining page
