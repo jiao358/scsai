@@ -19,5 +19,17 @@
      <table tableName="REQUEST_INFO" domainObjectName="RequestInfo">
       <columnOverride column="FILMID" property="FILMID" />
     </table>
+    <!-- langcom  注册用户 -->
+     <table tableName="langcom" domainObjectName="User">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
+    <!-- 商品列表 -->
+    <table tableName="BUSNESS_ITEM" domainObjectName="BusnessItem">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
+    <!-- 商品订单 -->
+    <table tableName="BUSNESS_ORDER" domainObjectName="BusnessOrder">
+      <columnOverride column="FILMID" property="FILMID" />
+    </table>
   </context>
 </generatorConfiguration>

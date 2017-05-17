@@ -22,3 +22,5 @@ API Design:
 /server.do   GET   get  ip,name of the server requested 
 
 /index.do  GET   get index logining page
+
+/killsys.do  GET  for kill system  param-> userId   busType

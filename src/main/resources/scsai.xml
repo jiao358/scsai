@@ -12,8 +12,8 @@
                         http://www.springframework.org/schema/aop 
                         http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
                         ">
-	<bean id="handlerExceptionResolver" class="scsai.cmb.helper.SimpleExceptionHandle">
-	</bean>
+	<!-- <bean id="handlerExceptionResolver" class="scsai.cmb.helper.SimpleExceptionHandle">
+	</bean> -->
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="scsai.cmb" />
 	<!-- 引入配置文件 -->
