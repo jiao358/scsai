@@ -7,19 +7,25 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import scsai.cmb.control.KillSystem;
 
 public class Helper {
 	private static final String ENCODING="UTF-8";
+	private static final Logger logger = Logger.getLogger(Helper.class);
 	public static void restful(HttpServletResponse  response , Object bean) throws IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		response.setHeader("Context-Type", "application/json;charset=UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw  = response.getWriter();
 		String json = mapper.writeValueAsString(bean);
-		System.out.println("the json"+ json);
 		pw.println(json);
 		pw.flush();
+		
+		logger.info("Response:"+json);
+		
 	}
 	
 	public static Map initResponse(){
