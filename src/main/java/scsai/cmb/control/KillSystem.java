@@ -2,6 +2,7 @@ package scsai.cmb.control;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,15 @@ public class KillSystem {
 	@Autowired
 	private BusnessOrderMapper orderDao;
 	
+	private static AtomicInteger limitOrder = new AtomicInteger(1200);
+	@RequestMapping(value="/killsys/getLimit.do",method=RequestMethod.GET)
+	public void getLimitOrder(HttpServletRequest request ,HttpServletResponse response) throws Exception{
+		Map bean=  Helper.initResponse();
+		bean.put("limitOrder", limitOrder.get());
+		Helper.restful(response, bean);;
+	}
+	
+	
 	// userId=?&busType=?
 	@RequestMapping(value="/killsys.do",method=RequestMethod.GET)
 	public void postCustomerInsert(HttpServletRequest request ,HttpServletResponse response,@RequestParam("userId")String userId,@RequestParam("busType") String busId ) throws Exception{
@@ -43,7 +53,7 @@ public class KillSystem {
 		boolean orderCheck=false;
 		BusnessItem busnessItem =null;
 		
-		synchronized(logger){
+		if(limitOrder.decrementAndGet()>0){
 			busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
 			if(busnessItem.getTotalNum()>0){
 				busnessItem.setTotalNum(busnessItem.getTotalNum()-1);
@@ -51,7 +61,6 @@ public class KillSystem {
 				orderCheck =true;
 			}
 		}
-		
 		if(orderCheck){
 			User user=userDao.selectByPrimaryKey(Integer.valueOf(userId));
 			BusnessOrder order =new BusnessOrder();

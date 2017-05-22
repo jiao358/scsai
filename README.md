@@ -24,3 +24,5 @@ API Design:
 /index.do  GET   get index logining page
 
 /killsys.do  GET  for kill system  param-> userId   busType
+
+/killsys/getLimit.do   GET  for get the order limit
