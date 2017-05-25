@@ -196,6 +196,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+	<update id="update4Decrement" parameterType="java.lang.Integer">
+		update BUSNESS_ITEM set TOTAL_NUM=TOTAL_NUM-1  where ID = #{id,jdbcType=INTEGER}
+	</update>
+  
   <update id="updateByExampleSelective" parameterType="map">
     <!--
       WARNING - @mbg.generated

@@ -23,7 +23,6 @@ import scsai.cmb.datasource.inf.CustomMapper;
 import scsai.cmb.datasource.inf.UserMapper;
 import scsai.cmb.helper.Helper;
 
-
 @Controller
 public class KillSystem {
 	private static final Logger logger = Logger.getLogger(KillSystem.class);
@@ -35,35 +34,23 @@ public class KillSystem {
 	private CustomMapper custDao;
 	@Autowired
 	private BusnessOrderMapper orderDao;
-	
+
 	private static AtomicInteger limitOrder = new AtomicInteger(1200);
-	@RequestMapping(value="/killsys/getLimit.do",method=RequestMethod.GET)
-	public void getLimitOrder(HttpServletRequest request ,HttpServletResponse response) throws Exception{
-		Map bean=  Helper.initResponse();
-		bean.put("limitOrder", limitOrder.get());
-		Helper.restful(response, bean);;
-	}
-	
-	
-	// userId=?&busType=?
-	@RequestMapping(value="/killsys.do",method=RequestMethod.GET)
-	public void postCustomerInsert(HttpServletRequest request ,HttpServletResponse response,@RequestParam("userId")String userId,@RequestParam("busType") String busId ) throws Exception{
-		Map<String,String> param=request.getParameterMap();
-		Map bean=  Helper.initResponse();
-		boolean orderCheck=false;
-		BusnessItem busnessItem =null;
-		
-		if(limitOrder.decrementAndGet()>0){
-			busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
-			if(busnessItem.getTotalNum()>0){
-				busnessItem.setTotalNum(busnessItem.getTotalNum()-1);
-				busDao.updateByPrimaryKey(busnessItem);
-				orderCheck =true;
-			}
-		}
-		if(orderCheck){
-			User user=userDao.selectByPrimaryKey(Integer.valueOf(userId));
-			BusnessOrder order =new BusnessOrder();
+
+	@RequestMapping(value = "/killsys.do", method = RequestMethod.GET)
+	public void postCustomerInsert(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("userId") String userId, @RequestParam("busType") String busId) throws Exception {
+		//1.security system
+		//2.check order system
+		//3.check access rule 
+		//.....
+		Map bean = Helper.initResponse();
+		if (limitOrder.decrementAndGet() >= 0) {
+			busDao.update4Decrement(Integer.valueOf(busId));
+			BusnessItem busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
+			
+			User user = userDao.selectByPrimaryKey(Integer.valueOf(userId));
+			BusnessOrder order = new BusnessOrder();
 			order.setBusnessId(Integer.valueOf(busId));
 			order.setBusnessName(busnessItem.getName());
 			order.setCreateDate(new Date());
@@ -73,11 +60,21 @@ public class KillSystem {
 			order.setUserName(user.getUsername());
 			orderDao.insert(order);
 			bean.put("operate", "1");
-		}else{
+
+		} else {
 			bean.put("operate", "0");
 		}
-		
-		Helper.restful(response, bean);;
+
+		Helper.restful(response, bean);
+		;
 	}
-	
+
+	@RequestMapping(value = "/killsys/getLimit.do", method = RequestMethod.GET)
+	public void getLimitOrder(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map bean = Helper.initResponse();
+		bean.put("limitOrder", limitOrder.get());
+		Helper.restful(response, bean);
+		;
+	}
+
 }
