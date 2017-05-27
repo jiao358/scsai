@@ -1,6 +1,6 @@
 package scsai.cmb.control;
 
-import java.util.Date;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import scsai.cmb.datasource.entity.BusnessItem;
-import scsai.cmb.datasource.entity.BusnessOrder;
-import scsai.cmb.datasource.entity.User;
 import scsai.cmb.datasource.inf.BusnessItemMapper;
 import scsai.cmb.datasource.inf.BusnessOrderMapper;
 import scsai.cmb.datasource.inf.CustomMapper;
 import scsai.cmb.datasource.inf.UserMapper;
 import scsai.cmb.helper.Helper;
+import scsai.cmb.helper.MQHelper;
 
 @Controller
 public class KillSystem {
@@ -46,20 +44,14 @@ public class KillSystem {
 		//.....
 		Map bean = Helper.initResponse();
 		if (limitOrder.decrementAndGet() >= 0) {
-			busDao.update4Decrement(Integer.valueOf(busId));
-			BusnessItem busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
-			
-			User user = userDao.selectByPrimaryKey(Integer.valueOf(userId));
-			BusnessOrder order = new BusnessOrder();
-			order.setBusnessId(Integer.valueOf(busId));
-			order.setBusnessName(busnessItem.getName());
-			order.setCreateDate(new Date());
-			order.setCreateTime(new Date());
-			order.setPrice(busnessItem.getPrice());
-			order.setUserId(Integer.valueOf(userId));
-			order.setUserName(user.getUsername());
-			orderDao.insert(order);
-			bean.put("operate", "1");
+			try{
+				MQHelper mq = MQHelper.getInstance();
+				mq.trxPersistentSend(busId+userId);
+				bean.put("operate", "1");
+			}catch (Exception e) {
+				logger.error("MQClient error,busId:"+busId+",userId:"+userId);
+				bean.put("operate", "0");
+			}
 
 		} else {
 			bean.put("operate", "0");
@@ -77,4 +69,20 @@ public class KillSystem {
 		;
 	}
 
+	
+	private void copy(){
+		/*busDao.update4Decrement(Integer.valueOf(busId));
+		BusnessItem busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
+		
+		User user = userDao.selectByPrimaryKey(Integer.valueOf(userId));
+		BusnessOrder order = new BusnessOrder();
+		order.setBusnessId(Integer.valueOf(busId));
+		order.setBusnessName(busnessItem.getName());
+		order.setCreateDate(new Date());
+		order.setCreateTime(new Date());
+		order.setPrice(busnessItem.getPrice());
+		order.setUserId(Integer.valueOf(userId));
+		order.setUserName(user.getUsername());
+		orderDao.insert(order);*/
+	}
 }
