@@ -50,6 +50,7 @@ public class KillSystem {
 				bean.put("operate", "1");
 			}catch (Exception e) {
 				logger.error("MQClient error,busId:"+busId+",userId:"+userId);
+				limitOrder.incrementAndGet();
 				bean.put("operate", "0");
 			}
 
