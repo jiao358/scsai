@@ -23,7 +23,7 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="levelMin" value="info" />
-			<param name="levelMax" value="info" />
+			<param name="levelMax" value="error" />
 		</filter>
 
 	</appender>
