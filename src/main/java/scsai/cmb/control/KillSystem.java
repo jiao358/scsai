@@ -69,21 +69,17 @@ public class KillSystem {
 		Helper.restful(response, bean);
 		;
 	}
-
-	
-	private void copy(){
-		/*busDao.update4Decrement(Integer.valueOf(busId));
-		BusnessItem busnessItem = busDao.selectByPrimaryKey(Integer.valueOf(busId));
+	@RequestMapping(value = "/killsys/consumer.do", method = RequestMethod.GET)
+	public void consume(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map bean = Helper.initResponse();
+		bean.put("limitOrder", limitOrder.get());
+		Helper.restful(response, bean);
+		MQHelper mq = MQHelper.getInstance();
+		mq.consumeMessage(busDao, userDao, orderDao);
 		
-		User user = userDao.selectByPrimaryKey(Integer.valueOf(userId));
-		BusnessOrder order = new BusnessOrder();
-		order.setBusnessId(Integer.valueOf(busId));
-		order.setBusnessName(busnessItem.getName());
-		order.setCreateDate(new Date());
-		order.setCreateTime(new Date());
-		order.setPrice(busnessItem.getPrice());
-		order.setUserId(Integer.valueOf(userId));
-		order.setUserName(user.getUsername());
-		orderDao.insert(order);*/
+		
 	}
+	
+	
+	
 }
